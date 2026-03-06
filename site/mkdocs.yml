@@ -1,1 +1,26 @@
-site_name: My Docs
+site_name: Портфолио Прозоровой Полины
+site_url: https://obabkisan.github.io/
+
+nav:
+  - Главная: index.md
+  - Обо мне: about.md
+  - Проекты: projects.md
+  - Лабораторные работы:
+      - Лабораторная 1: labs/lab1.md
+      - Лабораторная 2: labs/lab2.md
+  - Контакты: contact.md
+
+theme:
+  name: material
+  palette:
+    scheme: slate
+    primary: black
+    accent: indigo
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+  font:
+    text: Roboto
+    code: Roboto Mono
+
