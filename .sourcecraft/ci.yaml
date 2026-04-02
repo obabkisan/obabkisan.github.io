@@ -1,0 +1,16 @@
+on:
+  push:
+    - workflows: [deploy-mkdocs]
+      filter:
+        branches: ["main"]
+
+workflows:
+  deploy-mkdocs:
+    tasks:
+      - name: build-site
+        cubes:
+          - name: mkdocs-build
+            image: docker.io/library/python:3.11
+            script:
+              - pip install mkdocs mkdocs-material
+              - mkdocs build
