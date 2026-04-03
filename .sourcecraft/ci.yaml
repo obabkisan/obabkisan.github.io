@@ -15,9 +15,8 @@ workflows:
               - python -m pip install --upgrade pip
               - "if [ -f requirements.txt ]; then pip install -r requirements.txt; fi"
               - mkdocs build -d ./site
-              - echo "Сайт собран в папке ./site"
+              - echo "Site built in ./site"
               - ls -la ./site
-          
           - name: publish-to-release-branch
             script:
               - git config --global user.name "Polina"
@@ -26,5 +25,5 @@ workflows:
               - git rm -rf .
               - cp -r ./site/* .
               - git add .
-              - git commit -m "feat: автоматическое обновление сайта"
+              - git commit -m "Deploy site"
               - git push origin release -f
