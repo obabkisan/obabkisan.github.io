@@ -12,7 +12,9 @@
 2. Реализовать сценарий автоматического развертывания этого же статического сайта с помощью GitHub Actions. В рамках одного локального репозитория добавить 2 удаленных репозитория (сурскрафт и origin / гитхаб). Команда для добавления репозитория показана ниже.
 3. Продемонстрировать результаты выполнения. В качестве ответа оставить 4 ссылки. 
 4. Для задачи 2 деплой реализовать с помощью Actions (например, [этого](https://github.com/marketplace/actions/github-pages-action) или [этого](https://github.com/marketplace/actions/deploy-mkdocs)).
-Начальная последовательность шагов для выполнения задачи 1 и 2 
+
+Начальная последовательность шагов для выполнения задачи 1 и 2:
+
 - Авторизуйтесь с использованием своего аккаунта в Яндекс на сайте sourcecraft.dev.
 - Создайте публичную организацию.
 - Создайте пустой репозиторий.
@@ -25,20 +27,22 @@
 
 ## Код и команды 
 
-1. Организация структуры проекта
+### Организация структуры проекта
 
 Файлы распределены согласно стандарту MkDocs:
-- `mkdocs.yml` - в корне репозитория
-- `docs/` - исходные Markdown-файлы
-- `site/` - папка для сборки (добавлена в `.gitignore`)
+
+-  `mkdocs.yml` - в корне репозитория
+-  `docs/` - исходные Markdown-файлы
+-  `site/` - папка для сборки (добавлена в `.gitignore`)
 
 Были добавлены: 
-- `.github/workflows/deploy-mkdocs.yml` с описанием пайплайна сборки и публикации
-- `sourcecraft/ci.yaml` - пайплайн сборки и публикации в ветку release
-- `sourcecraft/sites.yaml` - указание источника для хостинга
-- `requirements.txt`- упрощает установку зависимостей как локально, так и на CI-серверах.
 
-2. Генерация SSH-ключа
+-  `.github/workflows/deploy-mkdocs.yml` с описанием пайплайна сборки и публикации
+-  `sourcecraft/ci.yaml` - пайплайн сборки и публикации в ветку release
+-  `sourcecraft/sites.yaml` - указание источника для хостинга
+-  `requirements.txt`- упрощает установку зависимостей как локально, так и на CI-серверах.
+
+### Генерация SSH-ключа
 ```
 ssh-keygen -t ed25519 -C "моя почта"
 ```
@@ -57,7 +61,7 @@ cat ~/.ssh/id_ed25519.pub
 ```
 ssh-add --apple-use-keychain ~/.ssh/id_ed25519
 ```
-3. Перенос репозитория на SourceCraft
+### Перенос репозитория на SourceCraft
 
 На платформе SourceCraft был создан новый репозиторий с именем "obabkisan-portfolio": `"Ваша мастерская" -> "Репозитории" -> "Новый репозиторий" -> "Пустой репозиторий"`. Репозиторий был создан без инициализации `README` и `.gitignore`, чтобы избежать конфликтов с уже существующей историей коммитов из GitHub
 
@@ -78,16 +82,15 @@ origin  git@github.com:obabkisan/obabkisan.github.io.git (push)
 sourcecraft  ssh://ssh.sourcecraft.dev/obabkisan/obabkisan-portfolio.git (fetch)
 sourcecraft  ssh://ssh.sourcecraft.dev/obabkisan/obabkisan-portfolio.git (push)
 ```
-5. Отправка конфигураций на платформы 
+Отправка конфигураций на платформы 
 ```
 git add .
 git commit -m "add auto-deploy configs for SourceCraft and GitHub Pages"
 git push origin main # отправка на GitHub
 git push sourcecraft main # тправка на SourceCraft
 ```
-После пуша автоматически запустились пайплайны, сайты опубликованы и доступны по ссылкам:
-- [статический сайт на SourceCraft](https://obabkisan.sourcecraft.site/obabkisan-portfolio/)
-- [статический сайт на GitHub Pages](https://obabkisan.github.io/)
+После пуша автоматически запустились пайплайны, сайты опубликованы и доступны по ссылкам: [статический сайт на SourceCraft](https://obabkisan.sourcecraft.site/obabkisan-portfolio/), [статический сайт на GitHub Pages](https://obabkisan.github.io/).
+
 ---
 ## Вывод
 
