@@ -1,16 +1,30 @@
 on:
   push:
-    - workflows: [deploy-mkdocs]
+    - workflows: [build-site]
       filter:
         branches: ["main"]
 
 workflows:
-  deploy-mkdocs:
+  build-site:
     tasks:
-      - name: build-site
+      - name: build-and-publish-site
         cubes:
-          - name: mkdocs-build
-            image: docker.io/library/python:3.11
+          - name: build-mkdocs-site
+            image: docker.io/library/python:3.11-slim
             script:
-              - pip install mkdocs mkdocs-material
-              - mkdocs build
+              - python -m pip install --upgrade pip
+              - "if [ -f requirements.txt ]; then pip install -r requirements.txt; fi"
+              - mkdocs build -d ./site
+              - echo "Сайт собран в папке ./site"
+              - ls -la ./site
+          
+          - name: publish-to-release-branch
+            script:
+              - git config --global user.name "Polina"
+              - git config --global user.email "polina1149@mail.ru"
+              - git checkout -b release || git checkout release
+              - git rm -rf .
+              - cp -r ./site/* .
+              - git add .
+              - git commit -m "feat: автоматическое обновление сайта"
+              - git push origin release -f
